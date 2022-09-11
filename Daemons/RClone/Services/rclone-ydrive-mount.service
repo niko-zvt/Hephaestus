@@ -1,0 +1,13 @@
+[Unit]
+Description=Rclone YDrive Mount Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=niko
+ExecStart=/usr/bin/rclone mount YDrive: %h/YDrive --config %h/.config/rclone/rclone.conf --vfs-cache-mode full
+ExecStop=/bin/fusermount -u %h/YDrive
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=Rclone GDrive Mount Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=niko
+ExecStart=/usr/bin/rclone mount GDrive: %h/GDrive --config %h/.config/rclone/rclone.conf --vfs-cache-mode full
+ExecStop=/bin/fusermount -u %h/GDrive
+
+[Install]
+WantedBy=default.target
